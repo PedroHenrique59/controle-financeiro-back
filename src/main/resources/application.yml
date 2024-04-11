@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/controle_financeiro?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: admin123
+
+server:
+  port: 8081
