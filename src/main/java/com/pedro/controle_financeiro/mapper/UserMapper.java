@@ -1,4 +1,4 @@
-package com.pedro.controle_financeiro.mapper.custom;
+package com.pedro.controle_financeiro.mapper;
 
 import com.pedro.controle_financeiro.model.User;
 import com.pedro.controle_financeiro.util.EncryptPassword;

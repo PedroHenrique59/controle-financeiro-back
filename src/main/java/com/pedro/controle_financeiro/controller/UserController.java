@@ -1,6 +1,6 @@
 package com.pedro.controle_financeiro.controller;
 
-import com.pedro.controle_financeiro.mapper.custom.UserMapper;
+import com.pedro.controle_financeiro.mapper.UserMapper;
 import com.pedro.controle_financeiro.model.User;
 import com.pedro.controle_financeiro.repository.UserRepository;
 import com.pedro.controle_financeiro.vo.UserVO;
