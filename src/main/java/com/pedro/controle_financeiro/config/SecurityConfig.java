@@ -2,6 +2,7 @@ package com.pedro.controle_financeiro.config;
 
 import com.pedro.controle_financeiro.jwt.JwtTokenFilter;
 import com.pedro.controle_financeiro.jwt.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +22,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
 
     @Bean
     PasswordEncoder passwordEncoder() {

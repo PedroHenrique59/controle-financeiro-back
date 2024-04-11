@@ -26,7 +26,7 @@ public class LoginService {
         try {
 
             var username = data.getUsername();
-            var password = EncryptPassword.encrypt(data.getPassword());
+            var password = data.getPassword();
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 

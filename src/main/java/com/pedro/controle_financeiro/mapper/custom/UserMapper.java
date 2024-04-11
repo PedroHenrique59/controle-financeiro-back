@@ -16,6 +16,13 @@ public class UserMapper {
         user.setUserName(userVO.getUsername());
         user.setPassword(EncryptPassword.encrypt(userVO.getPassword()));
         user.setPermissions(new ArrayList<>());
+
+        //Sempre atribuir algum valor para essas propriedades, caso passe NULL vai dar erro no authenticate
+        user.setEnabled(Boolean.TRUE);
+        user.setAccountNonExpired(Boolean.TRUE);
+        user.setAccountNonLocked(Boolean.TRUE);
+        user.setCredentialsNonExpired(Boolean.TRUE);
+
         return user;
     }
 }

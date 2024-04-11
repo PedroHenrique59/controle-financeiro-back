@@ -7,7 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pedro.controle_financeiro.vo.TokenVO;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${security.jwt.token.secret-key:secret}")
@@ -29,8 +30,7 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.expire-length:3600000}")
     private Long validityInMilliseconds = 3600000L;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     Algorithm algorithm = null;
 
