@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Pedro">
+
+        <createTable tableName="users">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKeyName="pk_id_user" primaryKey="true"/>
+            </column>
+
+            <column name="user_name" type="varchar(150)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="password" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="account_non_expired" type="bit(1)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="account_non_locked" type="bit(1)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="credentials_non_expired" type="bit(1)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="enabled" type="bit(1)">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

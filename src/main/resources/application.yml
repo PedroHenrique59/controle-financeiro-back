@@ -4,6 +4,8 @@ spring:
     url: jdbc:mysql://localhost:3308/controle_financeiro?useTimezone=true&serverTimezone=UTC
     username: root
     password: admin123
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.xml
 
 server:
   port: 8081
