@@ -1,5 +1,6 @@
 package com.pedro.controle_financeiro.controller;
 
+import com.pedro.controle_financeiro.repository.UserRepository;
 import com.pedro.controle_financeiro.service.LoginService;
 import com.pedro.controle_financeiro.vo.AccountCredentialsVO;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
+
+    private final UserRepository userRepository;
 
     @PostMapping(value = "/signin")
     public ResponseEntity<?> signin(@RequestBody AccountCredentialsVO data) {

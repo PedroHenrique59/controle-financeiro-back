@@ -1,5 +1,6 @@
 package com.pedro.controle_financeiro.service;
 
+import com.pedro.controle_financeiro.jwt.JwtTokenProvider;
 import com.pedro.controle_financeiro.repository.UserRepository;
 import com.pedro.controle_financeiro.util.EncryptPassword;
 import com.pedro.controle_financeiro.vo.AccountCredentialsVO;
@@ -19,6 +20,8 @@ public class LoginService {
 
     private final UserRepository userRepository;
 
+    private final JwtTokenProvider tokenProvider;
+
     public ResponseEntity<TokenVO> signin(AccountCredentialsVO data) {
         try {
 
@@ -32,7 +35,7 @@ public class LoginService {
             var tokenResponse = new TokenVO();
 
             if (user != null) {
-                //tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
+                tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
             }
 
             return ResponseEntity.ok(tokenResponse);
