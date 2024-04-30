@@ -18,8 +18,6 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    private final UserRepository userRepository;
-
     @PostMapping(value = "/signin")
     public ResponseEntity<?> signin(@RequestBody AccountCredentialsVO data) {
         if (checkIfParamsIsNotNull(data)) {
