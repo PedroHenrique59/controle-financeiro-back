@@ -3,11 +3,15 @@ package com.pedro.controle_financeiro.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pedro.controle_financeiro.vo.TokenVO;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,6 +35,8 @@ public class JwtTokenProvider {
     private Long validityInMilliseconds = 3600000L;
 
     private final UserDetailsService userDetailsService;
+
+    private static final Logger logger = LogManager.getLogger(JwtTokenProvider.class);
 
     Algorithm algorithm = null;
 
@@ -95,8 +101,7 @@ public class JwtTokenProvider {
     private DecodedJWT decodedToken(String token) {
         Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
         JWTVerifier verifier = JWT.require(alg).build();
-        DecodedJWT decodedJWT = verifier.verify(token);
-        return decodedJWT;
+        return verifier.verify(token);
     }
 
     public String resolveToken(HttpServletRequest req) {
@@ -108,15 +113,20 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean validateToken(String token) throws Exception {
-        DecodedJWT decodedJWT = decodedToken(token);
+    public boolean validateToken(String token) {
         try {
+            DecodedJWT decodedJWT = decodedToken(token);
             if (decodedJWT.getExpiresAt().before(new Date())) {
                 return false;
             }
             return true;
+        } catch (JWTDecodeException e) {
+            logger.error("Erro ao decodificar o token", e);
+        } catch (TokenExpiredException e) {
+            logger.error("Token expirado", e);
         } catch (Exception e) {
-            throw new Exception("Expired or invalid JWT token!");
+            logger.error("Erro inesperado na validação do token", e);
         }
+        return false;
     }
 }
