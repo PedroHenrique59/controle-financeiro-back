@@ -1,13 +1,12 @@
 package com.pedro.controle_financeiro.controller;
 
 import com.pedro.controle_financeiro.jwt.JwtTokenProvider;
-import com.pedro.controle_financeiro.repository.UserRepository;
 import com.pedro.controle_financeiro.service.LoginService;
 import com.pedro.controle_financeiro.vo.AccountCredentialsVO;
-import com.pedro.controle_financeiro.vo.TokenVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -41,6 +40,12 @@ public class LoginController {
             }
         }
         return ResponseEntity.ok(false);
+    }
+
+    @GetMapping(value = "/testPermission")
+    @PreAuthorize("hasAnyRole('CACHORRO')")
+    private ResponseEntity<Boolean> testPermission() {
+        return ResponseEntity.ok(true);
     }
 
     private boolean checkIfParamsIsNotNull(AccountCredentialsVO data) {

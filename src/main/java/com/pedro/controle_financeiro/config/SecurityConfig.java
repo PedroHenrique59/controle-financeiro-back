@@ -3,11 +3,12 @@ package com.pedro.controle_financeiro.config;
 import com.pedro.controle_financeiro.jwt.JwtTokenFilter;
 import com.pedro.controle_financeiro.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,9 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.HashMap;
 import java.util.Map;
 
-@EnableWebSecurity
-@RequiredArgsConstructor
+
 @Configuration
+@RequiredArgsConstructor
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
     private final JwtTokenProvider tokenProvider;
@@ -55,8 +58,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(
-                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(
@@ -66,7 +68,7 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**"
                                 ).permitAll()
-                                .requestMatchers("/api/**").authenticated()
+                                .requestMatchers("/api/**").hasAnyRole("CACHORRO")
                                 .requestMatchers("/users").denyAll()
                 )
                 .cors(cors -> {})

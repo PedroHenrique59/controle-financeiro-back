@@ -9,6 +9,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pedro.controle_financeiro.vo.TokenVO;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
